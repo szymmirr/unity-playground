@@ -10,7 +10,7 @@ env:
 jobs:
   build:
     name: Build my project
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       # Checkout
       - name: Checkout repository
@@ -29,10 +29,10 @@ jobs:
         uses: webbertakken/unity-builder@v1.5
         with:
           unityVersion: 2019.4.5f1
-          targetPlatform: WebGL
+          targetPlatform: StandaloneWindows64
 
       # Output
       - uses: actions/upload-artifact@v1
         with:
-          name: Build
+          name: Frog-Windows64
           path: build
