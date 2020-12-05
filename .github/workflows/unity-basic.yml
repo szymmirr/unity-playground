@@ -8,18 +8,18 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
-  build:
-    name: Build my project
+  build-windows:
+    name: Build Windows64
     runs-on: ubuntu-latest
     steps:
       # Checkout
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
         with:
           lfs: true
 
       # Cache
-      - uses: actions/cache@v1.1.0
+      - uses: actions/cache@v2.1.3
         with:
           path: Library
           key: Library
@@ -32,7 +32,36 @@ jobs:
           targetPlatform: StandaloneWindows64
 
       # Output
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2.2.1
         with:
           name: Frog-Windows64
+          path: build
+
+  build-webgl:
+    name: Build WebGL
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.4
+        with:
+          lfs: true
+
+      # Cache
+      - uses: actions/cache@v2.1.3
+        with:
+          path: Library
+          key: Library
+
+      # Build
+      - name: Build project
+        uses: webbertakken/unity-builder@v1.5
+        with:
+          unityVersion: 2019.4.5f1
+          targetPlatform: WebGL
+
+      # Output
+      - uses: actions/upload-artifact@v2.2.1
+        with:
+          name: Frog-WebGL
           path: build
